@@ -83,6 +83,9 @@ class WorkflowManager extends Component {
     this.setState({
       selectedTransFactor: transfactor,
       loadingPFM: true,
+      showDNA: false,
+      showPrediction: false,
+      predictions: [],
     });
     getProbabilityFrequencyMatrix(transfactor).then(
       res => {
@@ -92,6 +95,10 @@ class WorkflowManager extends Component {
           loadingPFM: false,
           PFM: res.data,
         });
+        if (this.state.DNA) {
+          // DNA is already entered
+          this.onDNAChange(this.state.DNA);
+        }
       },
       () => {
         this.setState({
@@ -142,6 +149,7 @@ class WorkflowManager extends Component {
           <TransFactorPicker
             onChange={this.onTransFactorChange}
             factors={this.state.transFactors}
+            loading={this.state.loadingPFM}
           />
         )}
         {!this.state.showDNA || (

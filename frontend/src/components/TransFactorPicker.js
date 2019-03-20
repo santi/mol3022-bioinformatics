@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { ClipLoader } from "react-spinners";
 
 class TransFactorPicker extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class TransFactorPicker extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container transFactor">
         <select
           onChange={this.onChange}
           className="transFactorSelect"
@@ -31,6 +32,7 @@ class TransFactorPicker extends Component {
             </option>
           ))}
         </select>
+        <ClipLoader color={"#673AB7"} loading={this.props.loading} />
       </div>
     );
   }
