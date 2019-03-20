@@ -1,3 +1,12 @@
-print('gtAATTGTGGTTAatatagaaaactcgtga'.upper())
+from flask import Flask
 
-print('GTAATTGTGGTTAATATAGAAAACTCGTGA')
+app = Flask(__name__)
+
+
+@app.route('/')
+def index():
+    return 'Hello World!'
+
+
+if __name__ == '__main__':
+    my_awesome_app.run()
