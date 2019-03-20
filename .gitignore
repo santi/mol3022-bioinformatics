@@ -214,3 +214,5 @@ dmypy.json
 .history
 
 # End of https://www.gitignore.io/api/python,intellij,visualstudiocode
+All_PWMs/
+MA0002.1.sites
