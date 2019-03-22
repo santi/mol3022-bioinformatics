@@ -17,7 +17,7 @@ const initialState = {
 
   loadingAvailableTransFactors: false,
   errorAvailableTransFactors: false,
-  availableTransFactors: [],
+  transFactors: [],
 
   selectedSources: [],
   selectedTransFactor: "",

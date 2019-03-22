@@ -21,6 +21,7 @@
 .content {
   width: 800px;
   flex: 1;
+  max-width: 100%;
 }
 
 .container {

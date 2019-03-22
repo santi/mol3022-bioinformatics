@@ -10,7 +10,7 @@ const findHighestIndex = l => {
       maxIndex = i;
     }
   }
-  return maxIndex;
+  return Number(maxIndex);
 };
 
 class PredictionShowcase extends Component {
@@ -35,7 +35,7 @@ class PredictionShowcase extends Component {
       <div className="container">
         {highestIndex < 0 || (
           <div>
-            Highest binding score at position: <span>{highestIndex}</span>
+            Highest binding score at position: <span>{highestIndex + 1}</span>
           </div>
         )}
 
