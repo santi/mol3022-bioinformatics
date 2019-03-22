@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {
-  getTransFactorList,
+  getJasparTransFactorList,
   getProbabilityFrequencyMatrix,
   getSequenceProbabilities,
 } from "../api";
@@ -17,7 +17,8 @@ const initialState = {
 
   loadingAvailableTransFactors: false,
   errorAvailableTransFactors: false,
-  transFactors: [],
+  jasparTransFactors: [],
+  uniprobeTransFactors: [],
 
   selectedSources: [],
   selectedTransFactor: "",
@@ -50,11 +51,12 @@ class WorkflowManager extends Component {
         loadingAvailableTransFactors: true,
       },
       () => {
-        getTransFactorList().then(
+        getJasparTransFactorList().then(
           res => {
-            const factors = res.data;
+            const { jaspar, uniprobe } = res.data;
             this.setState({
-              transFactors: factors,
+              jasparTransFactors: jaspar,
+              uniprobeTransFactors: uniprobe,
               loadingAvailableTransFactors: false,
             });
           },
@@ -78,7 +80,7 @@ class WorkflowManager extends Component {
   }
 
   onTransFactorChange(transfactor) {
-    console.log(`TransFactor is now: ${transfactor}`);
+    console.log(`TransFactor is now: ${transfactor.id}`);
 
     this.setState({
       selectedTransFactor: transfactor,
@@ -87,7 +89,7 @@ class WorkflowManager extends Component {
       showPrediction: false,
       predictions: [],
     });
-    getProbabilityFrequencyMatrix(transfactor).then(
+    getProbabilityFrequencyMatrix(transfactor.id, transfactor.type).then(
       res => {
         this.setState({
           showDNA: true,
@@ -142,13 +144,24 @@ class WorkflowManager extends Component {
   }
 
   render() {
+    let factors = [];
+
+    for (let source of this.state.selectedSources) {
+      if (source.value === "jaspar") {
+        factors = factors.concat(this.state.jasparTransFactors);
+      } else if (source.value === "uniprobe") {
+        factors = factors.concat(this.state.uniprobeTransFactors);
+      }
+    }
+    factors.sort((a, b) => a["matrix_id"].localeCompare(b["matrix_id"]));
+
     return (
       <div className="container">
         <AlgorithmPicker onChange={this.onSourceChange} />
         {!this.state.showTransFactors || (
           <TransFactorPicker
             onChange={this.onTransFactorChange}
-            factors={this.state.transFactors}
+            factors={factors}
             loading={this.state.loadingPFM}
           />
         )}

@@ -8,7 +8,11 @@ class TransFactorPicker extends Component {
   }
 
   onChange(event) {
-    this.props.onChange(event.target.value);
+    const value = JSON.parse(event.target.value);
+    console.log(`chose factor: ${value}`);
+    console.log(value);
+
+    this.props.onChange(value);
   }
 
   render() {
@@ -24,11 +28,14 @@ class TransFactorPicker extends Component {
           </option>
           {this.props.factors.map(factor => (
             <option
-              value={factor.matrix_id}
+              value={JSON.stringify({
+                id: factor.matrix_id,
+                type: factor.type,
+              })}
               key={factor.matrix_id}
               className="transFactorOption"
             >
-              {factor.matrix_id}-{factor.name}
+              {factor.matrix_id}
             </option>
           ))}
         </select>

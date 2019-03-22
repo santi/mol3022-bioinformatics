@@ -37,7 +37,7 @@ def corrected_probability_of_bases(pfm):
 def pwm_conversion(pfm):
     # pwm conversion formulae given by 
     # https://www.nature.com/articles/nrg1315.pdf
-    return np.log2(corrected_probability_of_bases(pfm) / BACKGROUND_PROBABILITY_OF_BASE)
+    return np.log2(corrected_probability_of_bases(pfm) / BACKGROUND_PROBABILITY_OF_BASE).tolist()
 
 
 def score_sequence(sequence, pwm):
@@ -50,13 +50,10 @@ def score_sequence(sequence, pwm):
     
     return probabilities
 
-def get_sequence_probability(sequence, pfm):
+def get_sequence_probability(sequence, pwm):
     print(f"Sequence: {sequence}")
 
-    pfm = np.array(pfm)
-    print(f"pfm: {pfm}")
-
-    pwm = pwm_conversion(pfm)
+    pwm = np.array(pwm)
     print(f'pwm: {pwm}')
    
     probabilities = score_sequence(sequence, pwm)

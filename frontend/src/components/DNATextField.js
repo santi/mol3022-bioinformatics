@@ -10,8 +10,6 @@ class DNATextField extends Component {
   onChange(event) {
     const value = event.target.value;
     if (value.match(/^[acgtACGT]*$/)) {
-      console.log("match");
-
       this.props.onChange(value);
     }
   }
@@ -24,7 +22,7 @@ class DNATextField extends Component {
           type="text"
           value={this.props.text}
           onChange={this.onChange}
-          placeholder="Please enter DNA sequence for analysis (Charcters acgt or ACGT)"
+          placeholder="Please enter DNA sequence for analysis (Characters acgt or ACGT)"
         />
       </div>
     );
